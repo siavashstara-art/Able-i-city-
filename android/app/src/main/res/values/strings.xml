@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">ICity Core</string>
-    <string name="title_activity_main">ICity Core</string>
-    <string name="package_name">com.icity.core</string>
-    <string name="custom_url_scheme">com.icity.core</string>
-</resources>

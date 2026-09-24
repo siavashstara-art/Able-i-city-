@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect width="512" height="512" rx="128" fill="#F4EDE4"/>
-  <circle cx="256" cy="256" r="180" fill="#EADBC8"/>
-  <!-- Gentle roof / house shape -->
-  <path d="M256 130 L380 235 L340 235 L340 370 C340 378 334 384 326 384 L186 384 C178 384 172 378 172 370 L172 235 L132 235 Z" fill="#9A3412"/>
-  <rect x="220" y="270" width="72" height="114" rx="8" fill="#FEF3C7"/>
-  <circle cx="256" cy="200" r="22" fill="#D97706"/>
-</svg>
