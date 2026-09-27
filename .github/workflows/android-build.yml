@@ -19,11 +19,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 22
 
       - name: Install NPM Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build Web Application
         env:
@@ -40,28 +39,29 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
+
+      - name: Ensure Android Signing Keystore Exists
+        run: |
+          mkdir -p ~/.android
+          if [ ! -f ~/.android/debug.keystore ]; then
+            keytool -genkey -v -keystore ~/.android/debug.keystore \
+              -storepass android -alias androiddebugkey -keypass android \
+              -keyalg RSA -keysize 2048 -validity 10000 \
+              -dname "CN=Android Debug,O=Android,C=US"
+          fi
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: '8.5'
 
-      - name: Setup Gradle Wrapper
-        run: |
-          cd android
-          gradle wrapper --gradle-version 8.5
-          chmod +x gradlew
-
       - name: Build Android Release APK
-        run: |
-          cd android
-          ./gradlew assembleRelease --stacktrace
+        working-directory: android
+        run: gradle assembleRelease --no-daemon --stacktrace
 
       - name: Build Android Release AAB (App Bundle)
-        run: |
-          cd android
-          ./gradlew bundleRelease --stacktrace
+        working-directory: android
+        run: gradle bundleRelease --no-daemon --stacktrace
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
